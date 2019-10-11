@@ -1,0 +1,129 @@
+body{
+	background: #FAFAFB;
+	box-sizing: border-box;
+	margin: 0;
+	font-family: sans-serif;
+}
+header{
+    text-align: center;
+    padding: 10px;
+    font-size: 40px;
+    font-weight: 900;
+}
+footer{
+	text-align: center;
+}
+.date-picker-body,.date-picker-container{
+  display: flex;
+  flex-direction: column;
+  /*border: 1px solid black;*/
+  background: #FFFFFF;
+}
+
+.date-picker-nav{
+  order: -1;
+  
+}
+
+
+  .date-picker-container {
+    flex-direction: row;
+    flex: 1;
+    padding: 10px;
+   
+  }
+  .date-picker-main-content{
+    flex: 1;
+    height:400px;
+  }
+  .date-picker-nav, .date-picker-ads {
+    flex: 0 0 12em;
+  }
+
+  .date-picker{
+  	position: relative;
+  	width: 90%;
+  	max-width: 320px;
+  	/*box-shadow: 5px 5px	 #888888;*/
+  	height: 60px;
+  	cursor: pointer;
+  	text-align: center;
+  	user-select: none;
+  	
+  }
+
+  .date-picker:hover{
+  	background-color: #F3F3F3;
+  }
+  .date-picker .selected-date{
+  	width: 100%;
+  	height: 100%;
+  	display: flex;
+  	justify-content: center;
+  	text-align:center;
+  	color: #313131;
+  	font-size:28px;
+
+  }
+  .date-picker .dates{
+  	display: none;
+  	position: absolute;
+  	top:100%;
+  	left:0;
+  	right:0;
+
+  }
+
+  .date-picker .dates.active{
+
+  	display: block;
+  }
+
+  .date-picker .dates .months{
+  	display: flex;
+  	justify-content: space-between;
+  	align-items: center;
+  	border-bottom: 2px solid #EEEEEE;
+
+  }
+  .date-picker .dates .months .arrows{
+  	width: 35px;
+  	height: 35px;
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	font-size: 20px;
+  	color: #313131; 
+  }
+
+  .date-picker .dates .months .arrows:hover{
+  	background-color: #F3F3F3;
+
+
+  }
+  .date-picker .dates .months .arrows:active{
+  	background-color: #00CA85;
+  }
+
+  .date-picker .dates .days{
+  	display: grid; 
+  	grid-template-columns: repeat(7, 1fr);
+  	height: 200px;
+  	border: 1px solid #cfcfcf;
+  }
+
+
+  .date-picker .dates .days .day{ 
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	background-color: #FFFFFF;
+  }
+
+   .date-picker .dates .days .day.selected{
+   	background-color: #00CA85;
+   }
+
+
+
+
