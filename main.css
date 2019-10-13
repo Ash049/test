@@ -1,40 +1,49 @@
 body{
-	background: #FAFAFB;
+	background: #ECEEF1;
 	box-sizing: border-box;
 	margin: 0;
 	font-family: sans-serif;
+  color: #2873EF;
 }
 header{
     text-align: center;
     padding: 10px;
     font-size: 40px;
     font-weight: 900;
+    background-color: #FFFFFF;
+    margin-bottom: 5px;
 }
 footer{
 	text-align: center;
+  background: #FFFFFF;
+  margin-top: 5px;
 }
 .date-picker-body,.date-picker-container{
   display: flex;
   flex-direction: column;
-  /*border: 1px solid black;*/
-  background: #FFFFFF;
 }
 
 .date-picker-nav{
   order: -1;
   
 }
-
+.date-picker-container .date-picker-nav{
+  background: #FFFFFF;
+  margin-right: 5px;
+}
+.date-picker-container .date-picker-ads{
+  background: #FFFFFF;
+  margin-left: 5px;
+}
 
   .date-picker-container {
     flex-direction: row;
     flex: 1;
-    padding: 10px;
-   
   }
   .date-picker-main-content{
     flex: 1;
-    height:400px;
+   height: calc(100vh - 100px);
+    background: #FFFFFF;
   }
   .date-picker-nav, .date-picker-ads {
     flex: 0 0 12em;
@@ -49,7 +58,7 @@ footer{
   	cursor: pointer;
   	text-align: center;
   	user-select: none;
-  	
+    margin:25px auto;
   }
 
   .date-picker:hover{
@@ -61,7 +70,7 @@ footer{
   	display: flex;
   	justify-content: center;
   	text-align:center;
-  	color: #313131;
+  	color: #2873EF;
   	font-size:28px;
 
   }
@@ -93,7 +102,7 @@ footer{
   	justify-content: center;
   	align-items: center;
   	font-size: 20px;
-  	color: #313131; 
+  	color: #2873EF; 
   }
 
   .date-picker .dates .months .arrows:hover{

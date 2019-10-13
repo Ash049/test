@@ -1,6 +1,7 @@
 const date_picker_element = document.querySelector('.date-picker');
 const selected_date_element = document.querySelector('.date-picker .selected-date');
 const dates_element = document.querySelector('.date-picker .dates');
+const months_element = document.querySelector('.date-picker .dates .months');
 const mth_element = document.querySelector('.date-picker .dates .months .mth');
 const next_mth_element = document.querySelector('.date-picker .dates .months .next-mth');
 const prev_mth_element = document.querySelector('.date-picker .dates .months .prev-mth');
@@ -26,13 +27,16 @@ populateDates();
 date_picker_element.addEventListener('click',toggleDatePicker);
 next_mth_element.addEventListener('click',gotToNextMonth);
 prev_mth_element.addEventListener('click',goToPrevMonth);
+document.addEventListener('click',hideCalendar);
+selected_date_element.addEventListener('keypress',showCalender);
+
 
 function toggleDatePicker(e){
 if(!checkPathForClass(e.path,'dates')){
 	dates_element.classList.toggle('active');
 }
+e.stopPropagation();
 }
-
 
 function gotToNextMonth(){
 	month++;
@@ -113,3 +117,26 @@ function populateDates(){
 	}
 
 }
+
+function hideCalendar(){
+	dates_element.classList.remove('active');
+}
+
+function showCalender(e){
+	if(e.keyCode == 13){
+		dates_element.classList.toggle('active');
+	}
+	
+}
+
+months_element.onkeydown = function(e) {
+	console.log(e.keyCode);
+    switch (e.keyCode) {
+        case 37:
+            goToPrevMonth();
+            break;
+        case 39:
+            gotToNextMonth();
+            break;
+    }
+};
