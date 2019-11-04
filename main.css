@@ -72,7 +72,9 @@ footer{
   	text-align:center;
   	color: #2873EF;
   	font-size:28px;
-
+  }
+  .date-picker .selected-date:focus{
+    outline: 1px solid #cfcfcf;
   }
   .date-picker .dates{
   	display: none;
@@ -103,15 +105,23 @@ footer{
   	align-items: center;
   	font-size: 20px;
   	color: #2873EF; 
+    margin-top: 3px;
+    border: none;
+    background: #FFFFFF;
+  }
+  .date-picker .dates .months .arrows:focus{
+    outline: 1px solid #cfcfcf;
   }
 
   .date-picker .dates .months .arrows:hover{
   	background-color: #F3F3F3;
+    border-radius: 2px;
 
 
   }
   .date-picker .dates .months .arrows:active{
   	background-color: #00CA85;
+    border-radius: 2px;
   }
 
   .date-picker .dates .days{
@@ -119,6 +129,7 @@ footer{
   	grid-template-columns: repeat(7, 1fr);
   	height: 200px;
   	border: 1px solid #cfcfcf;
+    padding: 5px;
   }
 
 
@@ -127,8 +138,18 @@ footer{
   	justify-content: center;
   	align-items: center;
   	background-color: #FFFFFF;
+    margin: 1px;
+
   }
 
+.date-picker .dates .days:focus{
+  outline: 1px solid #cfcfcf;
+
+}
+.date-picker .dates .days .day:focus{
+  outline: 1px solid #cfcfcf;
+
+}
    .date-picker .dates .days .day.selected{
    	background-color: #00CA85;
    }
