@@ -142,10 +142,10 @@ footer{
 
   }
 
-.date-picker .dates .days:focus{
+/*.date-picker .dates .days:focus{
   outline: 1px solid #cfcfcf;
 
-}
+}*/
 .date-picker .dates .days .day:focus{
   outline: 1px solid #cfcfcf;
 

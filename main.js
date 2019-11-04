@@ -95,7 +95,7 @@ function populateDates(){
 	}
 
 	for (let i=0; i < amount_days; i++){
-		const day_element = document.createElement('div');
+		const day_element = document.createElement('a');
 		day_element.classList.add('day');
 		// day_element.id = 'day'+i;
 		day_element.textContent = i+1;
@@ -162,26 +162,27 @@ prev_mth_element.onkeydown = function(e){
 //     }
 // };
 //const day_element =document.querySelector('.date-picker .days .day:focus')
-days_element.onkeydown = function(e){
-var inputs = document.getElementsByClassName("day");
-for (var i = 0; i < inputs.length; i++){
-	console.log("inside loop");
-	inputs[i].classList.add('focus');
-  inputs[i].addEventListener("keyup", function (event) {
-    if (event.keyCode == 37) {
-      if (this.previousElementSibling) {
-        this.previousElementSibling.focus();
-      }
-    }
-    else if (event.keyCode == 39) {
-      if (this.nextElementSibling) {
-        this.nextElementSibling.focus();
-      }
-    }
-  }, false);       
+// days_element.onkeydown = function(e){
+// var inputs = document.getElementsByClassName("day");
+// for (var i = 0; i < inputs.length; i++){
+// 	console.log("inside loop");
+// 	inputs[i].classList.add('focus');
+//   inputs[i].addEventListener("keyup", function (event) {
+//     if (event.keyCode == 37) {
+//       if (this.previousElementSibling) {
+//         this.previousElementSibling.focus();
+//       }
+//     }
+//     else if (event.keyCode == 39) {
+//       if (this.nextElementSibling) {
+//         this.nextElementSibling.focus();
+//       }
+//     }
+//   }, false);       
 
-}
-}
+// }
+// }
+
 
 
 
