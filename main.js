@@ -1,4 +1,4 @@
-var DatePicker = function () {
+var DatePicker = (function () {
     const selected_date_element = document.getElementById('required-selected-date');
     const dates_element = document.getElementById('required-dates');
     const mth_element = document.getElementById('required-mth');
@@ -16,8 +16,10 @@ var DatePicker = function () {
     let selected_day = day;
     let selected_month = month;
     let selected_year = year;
-    var reqIndex;
-    var  previousSelectedDate;
+    let reqIndex;
+    let  previousSelectedDate;
+    let moveTabFromHere;
+    let firstDayOfMonth;
     mth_element.textContent =  months[month] + ' ' + year;
 
     selected_date_element.textContent = formateDate(date);
@@ -46,10 +48,12 @@ var DatePicker = function () {
 
     function gotToNextMonth(){
         month++;
+        selected_month = month;
         if(month > 11){
             month = 0;
             year++;
         }
+        selected_year = year;
         mth_element.textContent =  months[month] + ' ' + year;
         populateDates(month,year);
 
@@ -57,10 +61,12 @@ var DatePicker = function () {
 
     function goToPrevMonth(){
         month--;
+        selected_month = month;
         if(month < 0 ){
             month = 11;
             year--;
         }
+        selected_year = year;
         mth_element.textContent =  months[month] + ' ' + year;
         populateDates(month,year);
 
@@ -95,9 +101,12 @@ var DatePicker = function () {
     {
         return 32 - new Date(iYear, iMonth, 32).getDate();
     }
+
     function populateDates(currentMonth,currentYear){
         days_element.innerHTML = '';
         let firstDay = (new Date(currentYear, currentMonth)).getDay();
+        firstDayOfMonth = firstDay;
+        moveTabFromHere=firstDay;
         for(let j=0; j<daysOfMonth.length ; j++){
             const days_of_week = document.createElement('div');
             days_of_week.textContent = daysOfMonth[j];
@@ -111,9 +120,9 @@ var DatePicker = function () {
             if(i < firstDay){
                 day_element.textContent = "";
             }else{
-                // if(i == firstDay){
-                //  day_element.tabIndex = 0;
-                // }
+                if(i == firstDay){
+                 day_element.classList.add('move');
+                }
                 day_element.textContent = date;
                 date++;
             }
@@ -141,61 +150,59 @@ var DatePicker = function () {
 
     days_element.onkeydown = function(e){
         let allElements = days_element.children;
-        if(reqIndex == undefined){
+
             for (let i = 0; i < allElements.length; i++) {
                 if (allElements[i].className == "day selected") {
-
                     previousSelectedDate = i;
-                    reqIndex=i;
                     break;
                 }
             }
-        }
+
 
 
         switch (e.keyCode) {
             case 13:
                 selected_date_element.textContent = "";
-                selected_date_element.textContent = formateDate(new Date( selected_year + '-' + (selected_month+1)+ '-' + (reqIndex - 6-(new Date(selected_year, selected_month)).getDay()) ));
-                // selected_date_element.dataset.value = new Date( selected_year + '-' + (selected_year+1)+ '-' + (e.target.textContent) );
+                selected_date_element.textContent = formateDate(new Date( year + '-' + (month+1)+ '-' + (moveTabFromHere-firstDayOfMonth+1) ));
                 allElements[previousSelectedDate].classList.remove('selected');
-                allElements[reqIndex].classList.add('selected');
-                previousSelectedDate=reqIndex;
+                allElements[moveTabFromHere+7].classList.add('selected');
+                previousSelectedDate=moveTabFromHere;
                 break;
             case 37:
-                if(allElements[reqIndex-8] != undefined){
-                    allElements[reqIndex].classList.remove('move');
-                    allElements[reqIndex-1].classList.add('move');
-                    reqIndex=reqIndex-1;
+                if((moveTabFromHere-1) >= firstDayOfMonth){
+                    allElements[moveTabFromHere+7].classList.remove('move');
+                    allElements[moveTabFromHere+7-1].classList.add('move');
+                    moveTabFromHere=moveTabFromHere-1;
                 }
 
                 break;
             case 38:
-                if(reqIndex >= 14){
-                    allElements[reqIndex].classList.remove('move');
-                    allElements[reqIndex-7].classList.add('move');
-                    reqIndex=reqIndex-7;
+                if((moveTabFromHere - 7) >= firstDayOfMonth ){
+                    allElements[moveTabFromHere+7].classList.remove('move');
+                    allElements[moveTabFromHere].classList.add('move');
+                    moveTabFromHere = moveTabFromHere-7;
                 }
 
                 break;
             case 39:
-                if(allElements[reqIndex+1] != undefined){
-                    allElements[reqIndex].classList.remove('move');
-                    allElements[reqIndex+1].classList.add('move');
-                    reqIndex = reqIndex+1;
+                if(allElements[moveTabFromHere+1+7] != undefined){
+                    allElements[moveTabFromHere+7].classList.remove('move');
+                    allElements[moveTabFromHere+1+7].classList.add('move');
+                    moveTabFromHere = moveTabFromHere+1;
                 }
 
                 break;
             case 40:
-                if(allElements[reqIndex+7] != undefined){
-                    allElements[reqIndex].classList.remove('move');
-                    allElements[reqIndex+7].classList.add('move');
-                    reqIndex=reqIndex+7;
+                if((moveTabFromHere+7) < 35){
+                    allElements[moveTabFromHere+7].classList.remove('move');
+                    allElements[moveTabFromHere+14].classList.add('move');
+                    moveTabFromHere=moveTabFromHere+7;
                 }
 
                 break;
         }
     };
+
     return {
         toggleCalendar: toggleDatePicker,
         nextMonth: gotToNextMonth,
@@ -204,35 +211,59 @@ var DatePicker = function () {
 
 
     }
-};
+})();
 
-const datePicker = DatePicker();
+// const datePicker = DatePicker();
 
 const date_picker_element = document.getElementById('required-date-picker');
-date_picker_element.addEventListener('click',datePicker.toggleCalendar);
+date_picker_element.addEventListener('click',DatePicker.toggleCalendar);
 
 const next_mth_element = document.getElementById('required-next-mth');
-next_mth_element.addEventListener('click',datePicker.nextMonth);
+next_mth_element.addEventListener('click',DatePicker.nextMonth);
 next_mth_element.onkeydown = function(e){
     switch (e.keyCode) {
         case 39:
-            datePicker.nextMonth();
+            DatePicker.nextMonth();
             break;
     }
 
 };
 
 const prev_mth_element = document.getElementById('required-prev-mth');
-prev_mth_element.addEventListener('click',datePicker.previousMonth);
+prev_mth_element.addEventListener('click',DatePicker.previousMonth);
 prev_mth_element.onkeydown = function(e){
     switch (e.keyCode) {
         case 37:
-            datePicker.previousMonth();
+            DatePicker.previousMonth();
             break;
     }
 };
 
-document.addEventListener('click',datePicker.hideDatePicker);
+document.addEventListener('click',DatePicker.hideDatePicker);
+
+const selected_date_element = document.getElementById('required-selected-date');
+const submit_selected_date = document.getElementById('submit-selected-date');
+submit_selected_date.addEventListener('click',submitSelectedDate);
+
+function submitSelectedDate() {
+    let chosenDate = document.getElementById('required-selected-date').innerHTML;
+
+    let requiredData={
+        selDate:chosenDate
+    }
+    fetch('http://localhost:3000/selected/date', {
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        method: 'POST',
+        body: JSON.stringify(requiredData)
+    })
+        .then((resp) => resp.json())
+        .then(function(data) {
+            alert(data['message']);
+        })
+        .catch(function(error) {
+            console.log("ERROR:"+error);
+        });
+}
 
 
 
