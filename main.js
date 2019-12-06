@@ -261,7 +261,7 @@ function submitSelectedDate() {
             alert(data['message']);
         })
         .catch(function(error) {
-            console.log("ERROR:"+error);
+           alert("ERROR:"+error);
         });
 }
 
